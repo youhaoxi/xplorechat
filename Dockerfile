@@ -15,6 +15,10 @@ RUN pnpm i
 
 COPY . .
 
+# 关键修改：添加此行以修复 Windows/CRLF 换行符问题
+# 此命令在所有 .sh 脚本中查找并删除回车符 (\r)，解决 "Illegal option -" 错误。
+RUN sed -i 's/\r//g' /app/scripts/*.sh
+
 # Make scripts executable
 RUN chmod +x /app/scripts/*.sh
 
