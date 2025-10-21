@@ -42,7 +42,12 @@ The easiest way to get started. Download [docker-compose.yaml](./docker-compose.
 ```bash
 docker compose up
 ```
-
+or
+```bash
+docker compose -f docker-compose.yaml up -d
+```
+You can also run docker compose using the docker-compose_gpu.yaml and docker-compose_arm.yaml
+The docker-compose_m.yaml file is a test yaml file. When you test, you can run this file to deploy the project
 Access ChatOllama at http://localhost:3000
 
 ### Option 2: Development Setup
