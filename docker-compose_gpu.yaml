@@ -13,7 +13,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U chatollama -d chatollama"]
+      test: [ "CMD-SHELL", "pg_isready -U chatollama -d chatollama" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -44,7 +44,7 @@ services:
   chatollama:
     environment:
       # Access Control Settings
-      - ACL_ENABLED=false  # Set to 'true' to enable admin-only MCP management
+      - ACL_ENABLED=false # Set to 'true' to enable admin-only MCP management
       # Feature Flags - Use NUXT_ prefix for runtime configuration
       - NUXT_KNOWLEDGE_BASE_ENABLED=true
       - NUXT_REALTIME_CHAT_ENABLED=false
@@ -56,9 +56,9 @@ services:
       - DIRECT_URL=postgresql://chatollama:chatollama_password@postgres:5432/chatollama
       - REDIS_HOST=redis
       # Migration settings
-      - SKIP_MIGRATION=false  # Set to 'true' to skip automatic migration
+      - SKIP_MIGRATION=false # Set to 'true' to skip automatic migration
       - MIGRATION_TIMEOUT=300 # Migration timeout in seconds
-    image: 0001coder/chatollama:latest
+    image: ufo2022/xplorechat:v0.0.1
     ports:
       - "3000:3000"
     pull_policy: always
