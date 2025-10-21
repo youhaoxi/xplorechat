@@ -1,6 +1,6 @@
 English | [简体中文](README.zh-Hans.md)
 
-# ChatOllama + Deep Agents
+# XploreChat + Deep Agents
 
 > **🔐 New ACL Feature (2025-08-25):** Access Control Lists (ACL) for MCP server management! Control who can configure MCP servers with `ACL_ENABLED` environment variable. [Learn more about ACL configuration →](#mcp-server-management-permissions)
 
@@ -48,7 +48,8 @@ docker compose -f docker-compose.yaml up -d
 ```
 You can also run docker compose using the docker-compose_gpu.yaml and docker-compose_arm.yaml
 The docker-compose_m.yaml file is a test yaml file. When you test, you can run this file to deploy the project
-Access ChatOllama at http://localhost:3000
+
+and then you can access XploreChat at http://localhost:3000
 
 ### Option 2: Development Setup
 
@@ -62,8 +63,8 @@ For development or customization:
 
 2. **Installation**
    ```bash
-   git clone git@github.com:sugarforever/chat-ollama.git
-   cd chat-ollama
+   git clone https://github.com/youhaoxi/xplorechat.git
+   cd xplorechat
    cp .env.example .env
    pnpm install
    ```
