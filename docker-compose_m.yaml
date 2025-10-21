@@ -1,0 +1,77 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_DB=chatollama
+      - POSTGRES_USER=chatollama
+      - POSTGRES_PASSWORD=chatollama_password
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U chatollama -d chatollama" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  chromadb:
+    image: chromadb/chroma
+    ports:
+      - "8000:8000"
+    restart: always
+    volumes:
+      - chromadb_volume:/chroma/chroma
+
+  chatollama:
+    environment:
+      - ACL_ENABLED=false # Set to 'true' to enable admin-only MCP management
+      - NUXT_KNOWLEDGE_BASE_ENABLED=true
+      - NUXT_REALTIME_CHAT_ENABLED=false
+      - NUXT_MODELS_MANAGEMENT_ENABLED=true
+      - NUXT_MCP_ENABLED=true
+      - CHROMADB_URL=http://chromadb:8000
+      - DATABASE_URL=postgresql://chatollama:chatollama_password@postgres:5432/chatollama
+      - DIRECT_URL=postgresql://chatollama:chatollama_password@postgres:5432/chatollama
+      - REDIS_HOST=redis
+      # Migration settings
+      - SKIP_MIGRATION=false # Set to 'true' to skip automatic migration
+      - MIGRATION_TIMEOUT=300 # Migration timeout in seconds
+      - COHERE_API_KEY=xxxxx
+      - COHERE_MODEL=ms-marco-MiniLM-L-6-v2
+      - COHERE_BASE_URL=http://peanutshell:8000/v1
+    image: ufo2022/xplorechat:v0.0.1
+    pull_policy: always
+    #extra_hosts:
+    #  - "host.docker.internal:host-gateway"
+    ports:
+      - "3000:3000"
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+      chromadb:
+        condition: service_started
+      redis:
+        condition: service_started
+    volumes:
+      - ~/.chatollama:/app/data
+
+  redis:
+    image: redis:latest
+    restart: always
+    volumes:
+      - redis_data:/data
+
+  peanutshell:
+    image: ghcr.io/sugarforever/peanut-shell:latest
+    volumes:
+      - hf_data:/root/.cache
+
+volumes:
+  postgres_data:
+  chromadb_volume:
+  redis_data:
+  hf_data:
