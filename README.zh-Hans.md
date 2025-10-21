@@ -1,6 +1,6 @@
 [English](README.md) | 简体中文
 
-# ChatOllama
+# XploreChat
 
 > **🔐 新增 ACL 功能 (2025-08-25):** MCP 服务器管理访问控制列表（ACL）！通过 `ACL_ENABLED` 环境变量控制谁可以配置 MCP 服务器。[了解更多 ACL 配置 →](#mcp-服务器管理权限)
 
@@ -8,7 +8,7 @@
 
 > **📢 数据库迁移通知 (2025-08-14)：** ChatOllama 已从 SQLite 迁移到 PostgreSQL 作为主要数据库提供商，以获得更好的性能和可扩展性。
 
-`ChatOllama` 是一个基于 Nuxt 3 构建的开源聊天机器人平台，支持多种语言模型和高级功能，包括知识库、实时语音聊天和模型上下文协议 (MCP) 集成。
+`XploreChat` 是一个基于 Nuxt 3 构建的开源聊天机器人平台，支持多种语言模型和高级功能，包括知识库、实时语音聊天和模型上下文协议 (MCP) 集成。
 
 ## 支持的语言模型
 
@@ -42,8 +42,22 @@
 ```bash
 docker compose up
 ```
-
-在 http://localhost:3000 访问 ChatOllama
+或者使用如下命令也可以：
+```bash
+docker compose -f docker-compose.yaml up -d
+```
+你也可以通过运行如下命令部署项目（取决于你的环境配置）：
+```bash
+docker compose -f docker-compose_gpu.yaml up -d
+```
+```bash
+docker compose -f docker-compose_arm.yaml up -d
+```
+如果你想测试项目，我们推荐使用docker-compose_m.yaml文件来进行部署：
+```bash
+docker compose -f docker-compose_m.yaml up -d
+```
+在 http://localhost:3000 访问 XploreChat
 
 ### 方式二：开发环境设置
 
@@ -57,8 +71,8 @@ docker compose up
 
 2. **安装**
    ```bash
-   git clone git@github.com:sugarforever/chat-ollama.git
-   cd chat-ollama
+   git clone https://github.com/youhaoxi/xplorechat.git
+   cd xplorechat
    cp .env.example .env
    pnpm install
    ```
